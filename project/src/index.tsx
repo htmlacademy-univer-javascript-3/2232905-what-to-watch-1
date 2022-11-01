@@ -8,6 +8,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App
+      promoFilmName='The Grand Budapest Hotel'
+      promoFilmGenre='Drama'
+      promoFilmYear={2014}
+      promoFilmPosterImageSource='img/the-grand-budapest-hotel-poster.jpg'
+      promoFilmBackgroundImageSource='img/bg-the-grand-budapest-hotel.jpg'
+    />
   </React.StrictMode>,
 );
