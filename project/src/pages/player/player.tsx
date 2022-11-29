@@ -1,7 +1,17 @@
-function Player(): JSX.Element {
-  return (
+import {FilmInfo} from '../../types/film-info';
+import {useFilm} from '../../hooks/use-film';
+import NotFound from '../not-found/not-found';
+
+type PlayerProps = {
+  films: FilmInfo[];
+}
+
+function Player({films}: PlayerProps): JSX.Element {
+  const film = useFilm(films);
+
+  return film ? (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoSrc} className="player__video" poster={film.posterImgSrc}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -32,8 +42,9 @@ function Player(): JSX.Element {
         </div>
       </div>
     </div>
+  ) : (
+    <NotFound/>
   );
-
 }
 
 export default Player;

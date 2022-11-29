@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import {films} from './mocks/films';
+import {AuthStatus} from './types/auth-status';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -8,12 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      promoFilmName='The Grand Budapest Hotel'
-      promoFilmGenre='Drama'
-      promoFilmYear={2014}
-      promoFilmPosterImageSource='img/the-grand-budapest-hotel-poster.jpg'
-      promoFilmBackgroundImageSource='img/bg-the-grand-budapest-hotel.jpg'
-    />
+    <App promoFilm={films[0]} films={films} isAuth={AuthStatus.Authorized}/>
   </React.StrictMode>,
 );

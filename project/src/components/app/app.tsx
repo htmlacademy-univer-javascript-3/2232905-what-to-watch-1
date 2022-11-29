@@ -1,7 +1,6 @@
 import Main from '../../pages/main/main';
-import {MainPageProps} from '../../pages/main/main';
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
 import Film from '../../pages/film/film';
@@ -9,9 +8,16 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {AuthStatus} from '../../types/auth-status';
+import {FilmInfo} from '../../types/film-info';
 
+type AppProps = {
+  promoFilm: FilmInfo;
+  films: FilmInfo[];
+  isAuth: AuthStatus;
+}
 
-function App(props: MainPageProps): JSX.Element {
+function App({promoFilm, films, isAuth}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -21,29 +27,24 @@ function App(props: MainPageProps): JSX.Element {
         />
         <Route path="/">x
           <Route index element={
-            <Main promoFilmName={props.promoFilmName}
-              promoFilmGenre={props.promoFilmGenre}
-              promoFilmYear={props.promoFilmYear}
-              promoFilmPosterImageSource={props.promoFilmPosterImageSource}
-              promoFilmBackgroundImageSource={props.promoFilmBackgroundImageSource}
-            />
+            <Main isAuth={isAuth} films={films} promoFilm={promoFilm}/>
           }
           />
           <Route path="login" element={<SignIn/>}/>
           <Route path="mylist" element=
             {
-              <PrivateRoute isAuthorised={false}>
-                <MyList/>
+              <PrivateRoute isAuthorised>
+                <MyList films={films.slice(0, 8)}/>
               </PrivateRoute>
             }
           />
           <Route path="films/">
             <Route path=":id/">
-              <Route index element={<Film/>}/>
-              <Route path="review" element={<AddReview/>}/>
+              <Route index element={<Film films={films} isAuth={isAuth}/>}/>
+              <Route path="review" element={<AddReview films={films} isAuth={AuthStatus.Authorized}/>}/>
             </Route>
           </Route>
-          <Route path="player/:id" element={<Player/>}/>
+          <Route path="player/:id" element={<Player films={films}/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
