@@ -75,7 +75,7 @@ export const films: FilmInfo[] = [
         published: 'December 20, 2016',
         rating: 7.0
       }],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     id: 1,
@@ -95,7 +95,7 @@ export const films: FilmInfo[] = [
     },
     description: 'Из саквояжа зоолога-волшебника сбегают магические существа. Возвращение во вселенную «Гарри Поттера»',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://save4k.ru/video.php?url=UUZGFkBYGkkRB1ZbRQYFFQpDHVJdVl4JUk5fAQELFlFWXx0QWgZQCRMOU0tVAgUKWlRLRVtLXFgGDgFVVV0NBg4DFANaX0dfMC9rHwAWLVUQWmR5UEhREXZ0EAwUWQ0DFwUFSAJTDEhXVhRbU14JTCR7UlNaCkhQBFx5CT4saXNBWAEEdE98CikYRkNjM1EwKll7fQBpTh9jC34yQg1MU14PA14VEVoTEQFXD04MExUQU1YTQFxIEF5KUxYXCAVLXEEUC1tfAgVFD18PBFJDUyYDChNfVwQWWRVXDAMIDlxDVxdUcBFbSwILVUhFDQoFQ1xACFNMHFd0SlIQQglOD1QUXxBaXwdAEw4PAANFDw8MRVBCXF1bFUQFBFdWUQgCH0RCFEVfBEAOC19XChUPBQBeFgd0VElREVtYF1lVDBRLU0YDURtFBxARD0tSEEAFEEMOBwMLF1UOCRAJCRAFAw8EB1MCVAxQUlYABw5VU0cIRQ4EBA4JVAALAlxdQl5EUEIPVxUEUB4TXwAGB1NXUlICFgdxCw1VBw8EUVJCWw94fHY0fCtxQBcaQg8DVlVRUQIHE0FJWBdWVUVYARxIW0tXF1RwB1xDUSFbQhJRJQgBFAF2W01YAhIKdRYLEUpRXBcAJUEHRBMKEFdBRA9DUyZHQ0dEHAsmWlFbAEFWe1FXQBdUcBBUEgYAS0JWEBVEV3JXQEAcCyZbVUJDFw1fD3h9Q1ZiKA0RMTN7WnYpMQMtSEUYREwBA0MBQiM3BW4femhiFWRXXh4TDFVdT1oHCVJZBWZzblw6dlF3DiVWbUV/fUUKUQtjBDQIUQFwKiMAOmJSb191SCEFFXoSPT5VWlRecF9bFRBVJ0cBdhEPFREEQ1JYQQRUDRIKdQgJQQpxVFwXVHAPRkNRIV9EElElDBNYFgdxSVVABXtfCw0QW0VXVlAWQERZFQoFD3NwUCU-HXBEZ3NwXjF9YV4WABRZRlsFaxZlOmIkClIKeFAuLiVVSUR3CkMIXQB/UQAnV3FZQAZxL3JSaiRWUABlfTlSKRFeVFRHaXQxAF1GMQkyfFVUBkNUfCx4FiQLZ3dnGjQ=&sid=10095f44&title=Rick+Astley+-+Never+Gonna+Give+You+Up.mp4'
   },
   {
     id: 2,
@@ -119,7 +119,7 @@ export const films: FilmInfo[] = [
       'коллектива, поскольку образ жизни Меркьюри выходит из-под контроля, и их триумфальное воссоединение накануне ' +
       'концерта Live Aid, ставшим одним из величайших выступлений в истории рок-музыки.',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 3,
@@ -147,7 +147,7 @@ export const films: FilmInfo[] = [
     },
     description: 'Пристав оказывается заложником клиники для умалишенных. Сложносочиненный детектив с Леонардо ДиКаприо',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 4,
@@ -177,7 +177,7 @@ export const films: FilmInfo[] = [
       'на войне, его жена, недавно потерявшая ребенка, боится потерять еще и мужа. Чтобы удержать его рядом, она ' +
       'начинает свой проект по устранению конкурентов в борьбе за королевскую корону.',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 5,
@@ -214,7 +214,7 @@ export const films: FilmInfo[] = [
       'тысяч метров он счастлив по-настоящему. Только там, где все решает лишь мастерство пилота и Бог, ничто не ' +
       'ценится так дорого, как верность и честь.',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 6,
@@ -245,7 +245,7 @@ export const films: FilmInfo[] = [
       'непоправимое, и Ева мучается сознанием ответственности и собственной вины. Достаточно ли она любила своего ' +
       'сына? Какова доля ее вины в происшедшем?',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 7,
@@ -273,7 +273,7 @@ export const films: FilmInfo[] = [
     },
     description: 'Очаровательные вампиры-соседи становятся героями фильма. Безумно смешная мокьюментари-комедия Тайки Вайтити',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 8,
@@ -292,7 +292,7 @@ export const films: FilmInfo[] = [
     },
     description: 'Из саквояжа зоолога-волшебника сбегают магические существа. Возвращение во вселенную «Гарри Поттера»',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 9,
@@ -311,7 +311,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 10,
@@ -330,7 +330,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 11,
@@ -349,7 +349,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 12,
@@ -368,7 +368,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 13,
@@ -387,7 +387,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 14,
@@ -406,7 +406,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 15,
@@ -425,7 +425,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 16,
@@ -444,7 +444,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 17,
@@ -463,7 +463,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 18,
@@ -482,7 +482,7 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
   {
     id: 19,
@@ -501,6 +501,6 @@ export const films: FilmInfo[] = [
     },
     description: '',
     reviews: [],
-    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+    videoSrc: 'https://youtu.be/dQw4w9WgXcQ'
   },
 ];
