@@ -27,7 +27,7 @@ function App({promoFilm, films, isAuth}: AppProps): JSX.Element {
         />
         <Route path="/">x
           <Route index element={
-            <Main isAuth={isAuth} films={films} promoFilm={promoFilm}/>
+            <Main isAuth={isAuth} promoFilm={promoFilm}/>
           }
           />
           <Route path="login" element={<SignIn/>}/>

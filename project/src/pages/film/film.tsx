@@ -1,21 +1,14 @@
 import Footer from '../../components/footer/footer';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import Header from '../../components/header/header';
-import {Link, Navigate, useSearchParams} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import {FilmInfo} from '../../types/film-info';
 import {AuthStatus} from '../../types/auth-status';
 import {useFilm} from '../../hooks/use-film';
-import FilmDetails from './film-details';
-import FilmOverview from './film-overview';
-import FilmReviews from './film-reviews';
 import ListFilms from '../../components/list-films/list-films';
+import Tab from '../../components/tab/tab';
 
-export enum FilmPageContentType {
-  Overview='Overview',
-  Details='Details',
-  Reviews='Reviews'
-}
 
 type FilmPageProps = {
   isAuth: AuthStatus;
@@ -24,30 +17,6 @@ type FilmPageProps = {
 
 function Film({isAuth, films}: FilmPageProps): JSX.Element {
   const film = useFilm(films);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const contentType = searchParams.get('content');
-
-  let content = null;
-  let moreLikeThisFilms: FilmInfo[] = [];
-  if (film){
-    moreLikeThisFilms = films.filter((f) => f.genre === film.genre);
-
-    switch (contentType) {
-      case FilmPageContentType.Overview:
-        content = <FilmOverview filmInfo={film}/>;
-        break;
-      case FilmPageContentType.Details:
-        content = <FilmDetails filmInfo={film}/>;
-        break;
-      case FilmPageContentType.Reviews:
-        content = <FilmReviews filmInfo={film}/>;
-        break;
-      default:
-        content = <FilmOverview filmInfo={film}/>;
-        break;
-    }
-  }
 
   return (
     film ?
@@ -71,7 +40,7 @@ function Film({isAuth, films}: FilmPageProps): JSX.Element {
                 <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
               </div>
 
-              {content}
+              <Tab filmInfo={film}/>
 
             </div>
           </div>
@@ -80,7 +49,7 @@ function Film({isAuth, films}: FilmPageProps): JSX.Element {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <ListFilms films={moreLikeThisFilms}/>
+            <ListFilms films={films.filter((f) => f.genre === film.genre)}/>
           </section>
 
           <Footer/>
