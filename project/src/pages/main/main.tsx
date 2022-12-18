@@ -4,36 +4,37 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/auth-status';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
-import {Link, useSearchParams} from 'react-router-dom';
 import {Genre} from '../../types/genre';
 import Footer from '../../components/footer/footer';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeGenre, getFilmsByGenre} from '../../store/action';
 
 
 export type MainPageProps = {
   isAuth: AuthStatus;
-  films: FilmInfo[];
   promoFilm: FilmInfo;
 }
 
 
-function Main({isAuth, films, promoFilm}: MainPageProps): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectedGenre = searchParams.get('genre');
-
-  const toSearchFormat = (str: string) => str.replaceAll(' ', '-').replaceAll('&', 'and');
-
-  const filmsToShow = selectedGenre && selectedGenre !== toSearchFormat(Genre.All) ?
-    films.filter((film) => toSearchFormat(film.genre) === selectedGenre) :
-    films;
+function Main({isAuth, promoFilm}: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {genre, films} = useAppSelector((state) => state);
 
   const showGenresNavigate = () => {
     const links = [];
 
     for (const value of Object.values(Genre)){
-      const className = toSearchFormat(value) === selectedGenre ? 'catalog__genres-item--active' : '';
+      const className = value === genre ? 'catalog__genres-item--active' : '';
       links.push(
         <li className={`catalog__genres-item ${className}`}>
-          <Link className="catalog__genres-link" to={{pathname: '', search: `?genre=${toSearchFormat(value)}`}}>{value}</Link>
+          <button className="catalog__genres-link"
+            onClick={() => {
+              dispatch(changeGenre(value));
+              dispatch(getFilmsByGenre());}}
+            style={{background:'transparent', border:'none'}}
+          >
+            {value}
+          </button>
         </li> );
     }
 
@@ -66,7 +67,7 @@ function Main({isAuth, films, promoFilm}: MainPageProps): JSX.Element {
               showGenresNavigate()
             }
           </ul>
-          <ListFilms films={filmsToShow} />
+          <ListFilms films={films} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

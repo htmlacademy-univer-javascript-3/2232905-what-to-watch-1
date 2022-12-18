@@ -1,15 +1,11 @@
-import FilmNav from './film-nav';
 import {FilmInfo} from '../../types/film-info';
-import {FilmPageContentType} from './film';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
 
   const showStarringActors = () => filmInfo.starring.join(', ');
 
   return (
-    <div className="film-card__desc">
-      <FilmNav activeItem={FilmPageContentType.Overview} filmId={filmInfo.id}/>
-
+    <>
       <div className="film-rating">
         {
           filmInfo.rating ?
@@ -32,7 +28,8 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
         <p className="film-card__director"><strong>Director: {filmInfo.director}</strong></p>
         <p className="film-card__starring"><strong>Starring: {showStarringActors()} and other</strong></p>
       </div>
-    </div>);
+    </>
+  );
 }
 
 export default FilmOverview;
