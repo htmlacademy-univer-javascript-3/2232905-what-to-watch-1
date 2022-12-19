@@ -1,41 +1,40 @@
-import {FilmInfo} from '../../types/film-info';
 import ListFilms from '../../components/list-films/list-films';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/auth-status';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
-import {Genre} from '../../types/genre';
 import Footer from '../../components/footer/footer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeGenre, getFilmsByGenre} from '../../store/action';
+import {changeGenreAction} from '../../store/action';
 
 
 export type MainPageProps = {
   isAuth: AuthStatus;
-  promoFilm: FilmInfo;
 }
 
 
-function Main({isAuth, promoFilm}: MainPageProps): JSX.Element {
+function Main({isAuth}: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {genre, films} = useAppSelector((state) => state);
+
+  const {selectedGenre, films, promoFilm, genres} = useAppSelector((state) => state);
+  const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
 
   const showGenresNavigate = () => {
     const links = [];
 
-    for (const value of Object.values(Genre)){
-      const className = value === genre ? 'catalog__genres-item--active' : '';
+    for (const value of Array.from(genres)) {
+      const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
       links.push(
         <li className={`catalog__genres-item ${className}`}>
           <button className="catalog__genres-link"
             onClick={() => {
-              dispatch(changeGenre(value));
-              dispatch(getFilmsByGenre());}}
-            style={{background:'transparent', border:'none'}}
+              dispatch(changeGenreAction(value));
+            }}
+            style={{background: 'transparent', border: 'none'}}
           >
             {value}
           </button>
-        </li> );
+        </li>);
     }
 
     return links;
@@ -43,20 +42,23 @@ function Main({isAuth, promoFilm}: MainPageProps): JSX.Element {
 
   return (
     <>
-      <section className="film-card">
-        <FilmCardBackground background={promoFilm.backgroundImgSrc} alt={promoFilm.name}/>
+      {
+        promoFilm &&
+        <section className="film-card">
+          <FilmCardBackground background={promoFilm.backgroundImage} alt={promoFilm.name}/>
 
-        <Header isAuthorised={isAuth} className='film-card__head'/>
+          <Header isAuthorised={isAuth} className='film-card__head'/>
 
-        <div className="film-card__wrap">
-          <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src={promoFilm.posterImgSrc} alt={promoFilm.name} width="218" height="327"/>
+          <div className="film-card__wrap">
+            <div className="film-card__info">
+              <div className="film-card__poster">
+                <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327"/>
+              </div>
+              <FilmCardDescription film={promoFilm} films={films}/>
             </div>
-            <FilmCardDescription film={promoFilm} films={films}/>
           </div>
-        </div>
-      </section>
+        </section>
+      }
 
       <div className="page-content">
         <section className="catalog">
@@ -67,7 +69,7 @@ function Main({isAuth, promoFilm}: MainPageProps): JSX.Element {
               showGenresNavigate()
             }
           </ul>
-          <ListFilms films={films} />
+          <ListFilms films={filmsToShow}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

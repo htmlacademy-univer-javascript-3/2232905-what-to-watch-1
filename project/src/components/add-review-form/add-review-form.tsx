@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 
 function AddReviewForm() {
-
   const [formData, setFormData] = useState({
     rating: 0,
-    reviewText: ''
+    comment: ''
   });
 
   const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {

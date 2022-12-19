@@ -1,16 +1,13 @@
-import {FilmInfo} from '../../types/film-info';
 import ListFilms from '../../components/list-films/list-films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/auth-status';
+import {useAppSelector} from '../../hooks';
 
 
-type MyListProps = {
-  films: FilmInfo[];
-}
-
-function MyList({films}: MyListProps): JSX.Element {
-  const filmsInList = films.filter((film) => film.isInList);
+function MyList(): JSX.Element {
+  const {films} = useAppSelector((state) => state);
+  const filmsInList = films.filter((film) => film.isFavorite);
 
   return (
     <div className="user-page">

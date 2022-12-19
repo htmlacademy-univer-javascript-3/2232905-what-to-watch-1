@@ -1,23 +1,42 @@
-import {FilmInfo} from '../../types/film-info';
-import {useFilm} from '../../hooks/use-film';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import Header from '../../components/header/header';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {AuthStatus} from '../../types/auth-status';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
+import {useAppDispatch} from '../../hooks';
+import {useEffect, useState} from 'react';
+import {FilmInfo} from '../../types/film-info';
+import {getFilm} from '../../services/api-functions';
+import {redirectAction} from '../../store/action';
+import {AppRoute} from '../../constants/constants';
+import LoadingScreen from '../loading/loading';
 
 type AddReviewProps = {
-  films: FilmInfo[];
   isAuth: AuthStatus;
 }
 
-function AddReview({films, isAuth}: AddReviewProps): JSX.Element {
-  const film = useFilm(films);
+function AddReview({isAuth}: AddReviewProps): JSX.Element {
+  const [film, setFilm] = useState<FilmInfo>();
+  const params = useParams();
+  const filmId = Number(params.id);
 
-  return film ? (
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getFilm(filmId)
+      .then(({data}) => {
+        setFilm(data);
+      })
+      .catch((reason) => {
+        dispatch(redirectAction(AppRoute.NotFound));
+      });
+  },
+  [filmId]);
+
+  return !film ? <LoadingScreen/> : (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBackground background={film.backgroundImgSrc} alt={film.name}></FilmCardBackground>
+        <FilmCardBackground background={film.backgroundImage} alt={film.name}></FilmCardBackground>
 
         <Header isAuthorised={isAuth} className=''>
           <nav className="breadcrumbs">
@@ -33,15 +52,13 @@ function AddReview({films, isAuth}: AddReviewProps): JSX.Element {
         </Header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
+          <img src={film.posterImage} alt={film.name} width="218" height="327"/>
         </div>
       </div>
 
       <AddReviewForm/>
 
     </section>
-  ) : (
-    <Navigate to="*"/>
   );
 }
 

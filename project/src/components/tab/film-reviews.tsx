@@ -1,18 +1,19 @@
-import {FilmInfo} from '../../types/film-info';
+import {FilmInfo, Review} from '../../types/film-info';
 
 function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
+  const reviews: Review[] = [];
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
         {
-          filmInfo.reviews.map((review) => (
+          reviews.map((review) => (
             <div className="review" key={review.id}>
               <blockquote className="review__quote">
-                <p className="review__text">{review.text}</p>
+                <p className="review__text">{review.comment}</p>
 
                 <footer className="review__details">
-                  <cite className="review__author">{review.author}</cite>
-                  <time className="review__date" dateTime={review.dateTimeNumeric}>{review.published}</time>
+                  <cite className="review__author">{review.user.name}</cite>
+                  <time className="review__date">{review.date}</time>
                 </footer>
               </blockquote>
 
