@@ -8,9 +8,9 @@ type FilmCardDescriptionProps = PropsWithChildren<{
 }>
 
 function FilmCardDescription({film, films, children}: FilmCardDescriptionProps){
-  const filmsInListCount = films.filter((f) => f.isInList).length;
+  const filmsInListCount = films.filter((f) => f.isFavorite).length;
 
-  const [isInList, setIsInList] = useState(film.isInList);
+  const [isInList, setIsInList] = useState(film.isFavorite);
   const [count, setCount] = useState(filmsInListCount);
 
   const addOrRemoveFilmToList = () => {
@@ -23,7 +23,7 @@ function FilmCardDescription({film, films, children}: FilmCardDescriptionProps){
       <h2 className="film-card__title">{film.name}</h2>
       <p className="film-card__meta">
         <span className="film-card__genre">{film.genre}</span>
-        <span className="film-card__year">{film.year}</span>
+        <span className="film-card__year">{film.released}</span>
       </p>
 
       <div className="film-card__buttons">
