@@ -3,13 +3,15 @@ import {FilmInfo} from '../types/film-info';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   changeGenreAction,
-  redirectAction,
+  redirectAction, requireAuthorization,
   setFilmsAction,
   setGenresAction,
   setIsFilmsLoadedAction,
-  setPromoFilmAction
+  setPromoFilmAction, setUserAction
 } from './action';
 import browserHistory from '../browser-history';
+import {AuthStatus} from '../constants/constants';
+import {UserData} from '../types/user-data';
 
 
 const initialState: {
@@ -18,12 +20,16 @@ const initialState: {
   promoFilm: FilmInfo | null;
   genres: string[];
   isFilmsLoaded: boolean;
+  authorizationStatus: AuthStatus;
+  user: UserData | null;
 } = {
   selectedGenre: Genre.All,
   films: [],
   promoFilm: null,
   genres: ['All Genres'],
   isFilmsLoaded: false,
+  authorizationStatus: AuthStatus.Unknown,
+  user: null,
 };
 
 
@@ -50,5 +56,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(redirectAction, (state, action) => {
       browserHistory.push(action.payload);
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserAction, (state, action) => {
+      state.user = action.payload;
     });
 });

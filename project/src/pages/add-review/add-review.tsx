@@ -1,7 +1,6 @@
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import Header from '../../components/header/header';
 import {Link, useParams} from 'react-router-dom';
-import {AuthStatus} from '../../types/auth-status';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {useAppDispatch} from '../../hooks';
 import {useEffect, useState} from 'react';
@@ -11,11 +10,8 @@ import {redirectAction} from '../../store/action';
 import {AppRoute} from '../../constants/constants';
 import LoadingScreen from '../loading/loading';
 
-type AddReviewProps = {
-  isAuth: AuthStatus;
-}
 
-function AddReview({isAuth}: AddReviewProps): JSX.Element {
+function AddReview(): JSX.Element {
   const [film, setFilm] = useState<FilmInfo>();
   const params = useParams();
   const filmId = Number(params.id);
@@ -38,7 +34,7 @@ function AddReview({isAuth}: AddReviewProps): JSX.Element {
       <div className="film-card__header">
         <FilmCardBackground background={film.backgroundImage} alt={film.name}></FilmCardBackground>
 
-        <Header isAuthorised={isAuth} className=''>
+        <Header className=''>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">

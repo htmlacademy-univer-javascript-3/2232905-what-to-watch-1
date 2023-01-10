@@ -1,39 +1,43 @@
-import {AuthStatus} from '../../types/auth-status';
 import {PropsWithChildren} from 'react';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
+import {AuthStatus} from '../../constants/constants';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {logoutAction} from '../../store/api-actions';
 
 type HeaderProps = PropsWithChildren<{
-  isAuthorised: AuthStatus;
   className: string;
 }>
 
-function UserBlock({isAuthorised} : {isAuthorised: AuthStatus}){
+function UserBlock(){
+  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  const onClickSignOut = () => {
+    dispatch(logoutAction());
+  };
 
   const authorisedUserBlock = (
     <>
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+          <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
         </div>
       </li>
       <li className="user-block__item">
-        <Link to="/login" className="user-block__link">Sign out</Link>
+        <Link to="/" onClick={onClickSignOut} className="user-block__link">Sign out</Link>
       </li>
     </>);
 
   const notAuthorisedUserBlock = <Link to="/login" className="user-block__link">Sign in</Link>;
 
   let userBlock;
-  switch (isAuthorised) {
-    case AuthStatus.Authorized:
+  switch (authorizationStatus) {
+    case AuthStatus.Auth:
       userBlock = authorisedUserBlock;
       break;
-    case AuthStatus.NotAuthorized:
+    case AuthStatus.NoAuth:
       userBlock = notAuthorisedUserBlock;
-      break;
-    case AuthStatus.OnSignInPage:
-      userBlock = null;
       break;
   }
 
@@ -49,7 +53,7 @@ function Header(props: HeaderProps) {
 
         {props.children}
 
-        <UserBlock isAuthorised={props.isAuthorised}/>
+        <UserBlock/>
       </header>
     </>
   );
