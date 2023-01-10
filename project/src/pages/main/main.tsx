@@ -1,19 +1,13 @@
 import ListFilms from '../../components/list-films/list-films';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import Header from '../../components/header/header';
-import {AuthStatus} from '../../types/auth-status';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import Footer from '../../components/footer/footer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeGenreAction} from '../../store/action';
 
 
-export type MainPageProps = {
-  isAuth: AuthStatus;
-}
-
-
-function Main({isAuth}: MainPageProps): JSX.Element {
+function Main(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const {selectedGenre, films, promoFilm, genres} = useAppSelector((state) => state);
@@ -47,7 +41,7 @@ function Main({isAuth}: MainPageProps): JSX.Element {
         <section className="film-card">
           <FilmCardBackground background={promoFilm.backgroundImage} alt={promoFilm.name}/>
 
-          <Header isAuthorised={isAuth} className='film-card__head'/>
+          <Header className='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__info">

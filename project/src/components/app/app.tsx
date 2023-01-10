@@ -8,17 +8,13 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {AuthStatus} from '../../types/auth-status';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading';
 import HistoryRouter from '../history-route/hitstory-route';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  isAuth: AuthStatus;
-}
 
-function App({isAuth}: AppProps): JSX.Element {
+function App(): JSX.Element {
   const {isFilmsLoaded, promoFilm} = useAppSelector((state) => state);
   if (isFilmsLoaded || !promoFilm)
   {
@@ -36,21 +32,21 @@ function App({isAuth}: AppProps): JSX.Element {
         />
         <Route path="/">x
           <Route index element={
-            <Main isAuth={isAuth}/>
+            <Main/>
           }
           />
           <Route path="login" element={<SignIn/>}/>
           <Route path="mylist" element=
             {
-              <PrivateRoute isAuthorised>
+              <PrivateRoute>
                 <MyList />
               </PrivateRoute>
             }
           />
           <Route path="films/">
             <Route path=":id">
-              <Route index element={<Film isAuth={isAuth}/>}/>
-              <Route path="review" element={<AddReview isAuth={AuthStatus.Authorized}/>}/>
+              <Route index element={<Film/>}/>
+              <Route path="review" element={<AddReview/>}/>
             </Route>
           </Route>
           <Route path="player/:id" element={<Player />}/>

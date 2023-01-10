@@ -3,7 +3,6 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Header from '../../components/header/header';
 import {Link, useParams} from 'react-router-dom';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
-import {AuthStatus} from '../../types/auth-status';
 import ListFilms from '../../components/list-films/list-films';
 import Tab from '../../components/tab/tab';
 import {useEffect, useState} from 'react';
@@ -15,11 +14,7 @@ import {AppRoute} from '../../constants/constants';
 import LoadingScreen from '../loading/loading';
 
 
-type FilmPageProps = {
-  isAuth: AuthStatus;
-}
-
-function Film({isAuth}: FilmPageProps): JSX.Element {
+function Film(): JSX.Element {
   const [film, setFilm] = useState<FilmInfo>();
   const [similarFilms, setSimilarFilms] = useState<FilmInfo[]>([]);
   const params = useParams();
@@ -48,7 +43,7 @@ function Film({isAuth}: FilmPageProps): JSX.Element {
           <div className="film-card__hero">
             <FilmCardBackground background={film.backgroundImage} alt={film.name}/>
 
-            <Header isAuthorised={isAuth} className='film-card__head'/>
+            <Header className='film-card__head'/>
 
             <div className="film-card__wrap">
               <FilmCardDescription film={film} films={similarFilms}>
