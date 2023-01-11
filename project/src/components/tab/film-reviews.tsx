@@ -1,7 +1,6 @@
-import {FilmInfo, Review} from '../../types/film-info';
+import {Review} from '../../types/film-info';
 
-function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
-  const reviews: Review[] = [];
+function FilmReviews({reviews}: {reviews: Review[]}) {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -13,7 +12,7 @@ function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
 
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date">{review.date}</time>
+                  <time className="review__date">{new Date(review.date).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</time>
                 </footer>
               </blockquote>
 

@@ -23,11 +23,11 @@ function AddReview(): JSX.Element {
       .then(({data}) => {
         setFilm(data);
       })
-      .catch((reason) => {
+      .catch(() => {
         dispatch(redirectAction(AppRoute.NotFound));
       });
   },
-  [filmId]);
+  [filmId]); /* eslint-disable-line */
 
   return !film ? <LoadingScreen/> : (
     <section className="film-card film-card--full">

@@ -6,8 +6,8 @@ import FilmCardDescription from '../../components/film-card-description/film-car
 import ListFilms from '../../components/list-films/list-films';
 import Tab from '../../components/tab/tab';
 import {useEffect, useState} from 'react';
-import {FilmInfo} from '../../types/film-info';
-import {getFilm, getSimilarFilms} from '../../services/api-functions';
+import {FilmInfo, Review} from '../../types/film-info';
+import {getFilm, getFilmReviews, getSimilarFilms} from '../../services/api-functions';
 import {useAppDispatch} from '../../hooks';
 import {redirectAction} from '../../store/action';
 import {AppRoute} from '../../constants/constants';
@@ -17,24 +17,36 @@ import LoadingScreen from '../loading/loading';
 function Film(): JSX.Element {
   const [film, setFilm] = useState<FilmInfo>();
   const [similarFilms, setSimilarFilms] = useState<FilmInfo[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const params = useParams();
   const filmId = Number(params.id);
 
   const dispatch = useAppDispatch();
+
 
   useEffect(() => {
     getFilm(filmId)
       .then(({data}) => {
         setFilm(data);
       })
-      .catch((reason) => {
+      .catch(() => {
         dispatch(redirectAction(AppRoute.NotFound));
       });
     getSimilarFilms(filmId).then(({data}) => {
       setSimilarFilms(data);
     });
+    getFilmReviews(filmId).then(({data}) => {
+      setReviews(data.sort((firstReview, secondReview) => {
+        if (firstReview.date === secondReview.date)
+        {return 0;}
+        if (firstReview.date > secondReview.date)
+        {return -1;}
+        else
+        {return 1;}
+      }));
+    },);
   },
-  [filmId]);
+  [filmId]); /* eslint-disable-line */
 
   return (!film || !similarFilms) ?
     (<LoadingScreen/>) : (
@@ -58,7 +70,7 @@ function Film(): JSX.Element {
                 <img src={film.posterImage} alt={film.name} width="218" height="327"/>
               </div>
 
-              <Tab filmInfo={film}/>
+              <Tab filmInfo={film} reviews={reviews}/>
 
             </div>
           </div>

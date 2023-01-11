@@ -6,7 +6,7 @@ import {
   redirectAction,
   requireAuthorization,
   setFilmsAction,
-  setGenresAction,
+  setGenresAction, setIsFilmsLoadedAction,
   setPromoFilmAction,
   setUserAction
 } from './action';
@@ -25,6 +25,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<FilmInfo[]>('/films');
     dispatch(setFilmsAction(data));
     dispatch(setGenresAction());
+    dispatch(setIsFilmsLoadedAction(true));
   },
 );
 

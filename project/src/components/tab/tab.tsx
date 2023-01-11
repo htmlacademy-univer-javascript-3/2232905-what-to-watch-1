@@ -1,4 +1,4 @@
-import {FilmInfo} from '../../types/film-info';
+import {FilmInfo, Review} from '../../types/film-info';
 import FilmOverview from './film-overview';
 import FilmDetails from './film-details';
 import FilmReviews from './film-reviews';
@@ -6,6 +6,7 @@ import {useState} from 'react';
 
 type TabProps = {
   filmInfo: FilmInfo;
+  reviews: Review[];
 }
 
 function Tab(props: TabProps) {
@@ -18,7 +19,7 @@ function Tab(props: TabProps) {
       case 'Details':
         return <FilmDetails filmInfo={props.filmInfo}/>;
       case 'Reviews':
-        return <FilmReviews filmInfo={props.filmInfo}/>;
+        return <FilmReviews reviews={props.reviews}/>;
       default:
         return <FilmOverview filmInfo={props.filmInfo}/>;
     }
