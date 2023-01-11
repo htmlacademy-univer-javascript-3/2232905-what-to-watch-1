@@ -6,7 +6,7 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
     <>
       {actor}, <br/>
     </>
-  )).concat(<>{filmInfo.starring[filmInfo.starring.length - 1]}</>);
+  )).concat(<>{filmInfo.starring[filmInfo.starring.length - 1]}</>); /* eslint-disable-line */
 
   return (
     <div className="film-card__text film-card__row">

@@ -1,24 +1,47 @@
 import React, {useState} from 'react';
+import {postFilmReview} from '../../services/api-functions';
+import {useParams} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {redirectAction} from '../../store/action';
 
 function AddReviewForm() {
   const [formData, setFormData] = useState({
-    rating: 0,
+    rating: -1,
     comment: ''
   });
+  const [isCommentValid, setIsCommentValid] = useState(false);
+  const [isRatingValid, setIsRatingValid] = useState(false);
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const filmId = Number(params.id);
 
   const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
+    if (value.length >= 50 && value.length <= 400)
+    {setIsCommentValid(true);}
+    else
+    {setIsCommentValid(false);}
+
     setFormData({...formData, [name]: value});
   };
 
   const onChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
+    setIsRatingValid(true);
     setFormData({...formData, [name]: value});
   };
 
-  return(
+  const onSubmitPost = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    postFilmReview(filmId, formData).then(() => {
+      dispatch(redirectAction(`/films/${filmId}`));
+    }
+    );
+  };
+
+  return (
     <div className="add-review">
-      <form action="src/components/add-review-form/add-review-form#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={onSubmitPost}>
         <div className="rating">
           <div className="rating__stars">
             {
@@ -39,14 +62,16 @@ function AddReviewForm() {
 
         <div className="add-review__text">
           <textarea className="add-review__textarea"
-            name="reviewText"
-            id="review-text"
-            placeholder="Review text"
+            name="comment"
+            id="comment"
+            placeholder="Comment"
+            minLength={50}
+            maxLength={400}
             onChange={onChangeReview}
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button disabled={!isCommentValid || !isRatingValid} className="add-review__btn" type="submit">Post</button>
           </div>
 
         </div>
