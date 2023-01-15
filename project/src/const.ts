@@ -5,8 +5,6 @@ export enum NameSpace {
   User = 'USER',
 }
 
-export const VISIBLE_FILMS_COUNT_STEP = 8;
-
 export enum APIRoute {
   Films = '/films',
   Login = '/login',
@@ -31,3 +29,5 @@ export enum AppRoute {
   Player = 'player',
   NotFound = '*'
 }
+
+export const FILMS_COUNT_STEP = 8;
