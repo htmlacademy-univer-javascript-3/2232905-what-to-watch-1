@@ -1,8 +1,8 @@
 export enum NameSpace {
   Main = 'MAIN',
   Film = 'FILM',
+  FavoriteFilms = 'FAVORITE-FILMS',
   User = 'USER',
-  Data = 'DATA',
 }
 
 export const VISIBLE_FILMS_COUNT_STEP = 8;
@@ -12,7 +12,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  Promo = '/promo'
+  Promo = '/promo',
+  Favorite = '/favorite'
 }
 
 export enum AuthorizationStatus {
