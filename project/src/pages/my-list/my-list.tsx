@@ -2,10 +2,11 @@ import ListFilms from '../../components/list-films/list-films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import {useAppSelector} from '../../hooks';
+import {getFilms} from "../../store/main-process/selectors";
 
 
 function MyList(): JSX.Element {
-  const {films} = useAppSelector((state) => state);
+  const films = useAppSelector(getFilms);
   const filmsInList = films.filter((film) => film.isFavorite);
 
   return (

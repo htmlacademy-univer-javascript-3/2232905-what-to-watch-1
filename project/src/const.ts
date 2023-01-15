@@ -1,3 +1,10 @@
+export enum NameSpace {
+  Main = 'MAIN',
+  Film = 'FILM',
+  User = 'USER',
+  Data = 'DATA',
+}
+
 export const VISIBLE_FILMS_COUNT_STEP = 8;
 
 export enum APIRoute {
@@ -8,7 +15,7 @@ export enum APIRoute {
   Promo = '/promo'
 }
 
-export enum AuthStatus {
+export enum AuthorizationStatus {
   Unknown,
   Auth,
   NoAuth,

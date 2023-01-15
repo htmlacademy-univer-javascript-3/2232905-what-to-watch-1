@@ -29,7 +29,7 @@ function Tab(props: TabProps) {
     const tabs = [];
 
     for (const content of tabContent){
-      const className = content === tab ? 'film-nav__item--active' : '';
+      const className = content === tab ? 'film-process-nav__item--active' : '';
       tabs.push(
         <li className={`film-nav__item ${className}`}>
           <button className="film-nav__link"

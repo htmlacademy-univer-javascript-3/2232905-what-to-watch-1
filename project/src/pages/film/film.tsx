@@ -5,51 +5,37 @@ import {Link, useParams} from 'react-router-dom';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import ListFilms from '../../components/list-films/list-films';
 import Tab from '../../components/tab/tab';
-import {useEffect, useState} from 'react';
-import {FilmInfo, Review} from '../../types/film-info';
-import {getFilm, getFilmReviews, getSimilarFilms} from '../../services/api-functions';
-import {useAppDispatch} from '../../hooks';
-import {redirectAction} from '../../store/action';
-import {AppRoute} from '../../constants/constants';
-import LoadingScreen from '../loading/loading';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import LoadingScreen from '../../components/loading/loading';
+import {getFilm, getIsFilmLoaded, getReviews, getSimilarFilm} from "../../store/film-process/selectors";
+import {getFilmAction, getFilmReviewsAction, getSimilarFilmsAction} from "../../store/api-actions";
+import NotFound from "../not-found/not-found";
 
 
 function Film(): JSX.Element {
-  const [film, setFilm] = useState<FilmInfo>();
-  const [similarFilms, setSimilarFilms] = useState<FilmInfo[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const params = useParams();
   const filmId = Number(params.id);
-
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilm);
+  const reviews = useAppSelector(getReviews);
+  const isFilmLoaded = useAppSelector(getIsFilmLoaded);
   const dispatch = useAppDispatch();
 
 
   useEffect(() => {
-    getFilm(filmId)
-      .then(({data}) => {
-        setFilm(data);
-      })
-      .catch(() => {
-        dispatch(redirectAction(AppRoute.NotFound));
-      });
-    getSimilarFilms(filmId).then(({data}) => {
-      setSimilarFilms(data);
-    });
-    getFilmReviews(filmId).then(({data}) => {
-      setReviews(data.sort((firstReview, secondReview) => {
-        if (firstReview.date === secondReview.date)
-        {return 0;}
-        if (firstReview.date > secondReview.date)
-        {return -1;}
-        else
-        {return 1;}
-      }));
-    },);
-  },
-  [filmId]); /* eslint-disable-line */
+    dispatch(getFilmAction(filmId));
+    dispatch(getSimilarFilmsAction(filmId));
+    dispatch(getFilmReviewsAction(filmId));
+  }, [filmId, dispatch]);
 
-  return (!film || !similarFilms) ?
-    (<LoadingScreen/>) : (
+  if (!isFilmLoaded || !similarFilms || !reviews)
+    return <LoadingScreen/>
+
+  if (!film)
+    return <NotFound/>
+
+  return (
       <>
         <section className="film-card film-card--full">
           <div className="film-card__hero">

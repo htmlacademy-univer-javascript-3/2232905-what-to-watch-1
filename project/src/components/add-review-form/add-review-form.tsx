@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {postFilmReview} from '../../services/api-functions';
 import {useParams} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {redirectAction} from '../../store/action';
+import {postFilmReviewAction} from "../../store/api-actions";
+import {getIsReviewSend} from "../../store/film-process/selectors";
+import LoadingScreen from "../loading/loading";
+import {AppRoute} from "../../const";
 
 function AddReviewForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +17,7 @@ function AddReviewForm() {
   const dispatch = useAppDispatch();
   const params = useParams();
   const filmId = Number(params.id);
+  const isReviewSend = useAppSelector(getIsReviewSend)
 
   const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -33,13 +37,13 @@ function AddReviewForm() {
 
   const onSubmitPost = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    postFilmReview(filmId, formData).then(() => {
-      dispatch(redirectAction(`/films/${filmId}`));
-    }
-    );
+    dispatch(postFilmReviewAction({filmId: filmId, review: formData}))
   };
 
-  return (
+  if (isReviewSend)
+    dispatch(redirectAction(`${AppRoute.Films}/${filmId}`))
+
+  return (isReviewSend === false)? (<LoadingScreen/>) : (
     <div className="add-review">
       <form action="#" className="add-review__form" onSubmit={onSubmitPost}>
         <div className="rating">
