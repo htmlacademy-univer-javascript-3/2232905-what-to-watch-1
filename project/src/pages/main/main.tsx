@@ -3,17 +3,26 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Header from '../../components/header/header';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import Footer from '../../components/footer/footer';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import CatalogGenres from '../../components/catalog-genres/catalog-genres';
-import {getFilms, getPromoFilm, getSelectedGenre} from '../../store/main-process/selectors';
+import {getFilms, getFilmsCountToShow, getPromoFilm, getSelectedGenre} from '../../store/main-process/selectors';
 import {Genre} from '../../types/genre';
+import {FILMS_COUNT_STEP} from '../../const';
+import {changeFilmsCountToShowAction} from '../../store/main-process/main-process';
+import {useEffect} from 'react';
 
 
 function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
   const selectedGenre = useAppSelector(getSelectedGenre);
   const promoFilm = useAppSelector(getPromoFilm);
   const films = useAppSelector(getFilms);
+  const filmsCountToShow = useAppSelector(getFilmsCountToShow);
   const filmsToShow = selectedGenre === Genre.All ? films : films.filter((film) => film.genre === selectedGenre);
+
+  useEffect(() => {
+    dispatch(changeFilmsCountToShowAction(FILMS_COUNT_STEP));
+  }, [dispatch]);
 
   return (
     <>
@@ -39,12 +48,19 @@ function Main(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <CatalogGenres/>
-          <ListFilms films={filmsToShow}/>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ListFilms films={filmsToShow.slice(0, filmsCountToShow)}/>
+          {filmsToShow.length > filmsCountToShow ?
+            <div className="catalog__more">
+              <button
+                className="catalog__button"
+                type="button"
+                onClick={() => dispatch(changeFilmsCountToShowAction(filmsCountToShow + FILMS_COUNT_STEP))}
+              >
+              Show more
+              </button>
+            </div> :
+            null}
         </section>
-
         <Footer/>
       </div>
     </>

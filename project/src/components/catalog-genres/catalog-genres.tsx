@@ -1,8 +1,8 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Genre} from '../../types/genre';
-import {changeGenreAction} from '../../store/action';
 import {getHashCode} from '../../utils';
 import {getFilms, getSelectedGenre} from '../../store/main-process/selectors';
+import {changeGenreAction} from '../../store/main-process/main-process';
 
 
 function CatalogGenres(): JSX.Element {

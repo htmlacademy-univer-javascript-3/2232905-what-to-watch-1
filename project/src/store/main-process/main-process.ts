@@ -1,17 +1,17 @@
 import {FilmInfo} from '../../types/film-info';
 import {Genre} from '../../types/genre';
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../const';
+import {FILMS_COUNT_STEP, NameSpace} from '../../const';
 import {
   changeFilmStatusAction,
   getFilmsAction,
   getPromoFilmAction,
   logoutAction
 } from '../api-actions';
-import {changeGenreAction} from '../action';
 
 const initialState: {
   films: FilmInfo[];
+  filmsCountToShow: number;
   selectedGenre: string;
   promoFilm: FilmInfo | null;
   error: null;
@@ -19,6 +19,7 @@ const initialState: {
 
 } = {
   films: [],
+  filmsCountToShow: FILMS_COUNT_STEP,
   selectedGenre: Genre.All,
   promoFilm: null,
   error: null,
@@ -28,7 +29,15 @@ const initialState: {
 export const mainProcess = createSlice({
   name: NameSpace.Main,
   initialState,
-  reducers: {},
+  reducers: {
+    changeGenreAction(state, action: {payload: string; type: string}) {
+      state.selectedGenre = action.payload;
+      state.filmsCountToShow = FILMS_COUNT_STEP;
+    },
+    changeFilmsCountToShowAction(state, action: {payload: number; type: string}) {
+      state.filmsCountToShow = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getFilmsAction.pending, (state) => {
@@ -40,9 +49,6 @@ export const mainProcess = createSlice({
       })
       .addCase(getPromoFilmAction.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
-      })
-      .addCase(changeGenreAction, (state, action) => {
-        state.selectedGenre = action.payload;
       })
       .addCase(changeFilmStatusAction.fulfilled, (state, action) => {
         const film = action.payload;
@@ -56,3 +62,5 @@ export const mainProcess = createSlice({
       });
   }
 });
+
+export const {changeGenreAction, changeFilmsCountToShowAction} = mainProcess.actions;

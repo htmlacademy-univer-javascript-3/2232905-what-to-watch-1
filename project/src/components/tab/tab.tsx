@@ -17,7 +17,7 @@ function Tab(props: TabProps) {
   const renderTab = () => {
     switch (tab) {
       case 'Details':
-        return <FilmDetails filmInfo={props.filmInfo}/>;
+        return <FilmDetails film={props.filmInfo}/>;
       case 'Reviews':
         return <FilmReviews reviews={props.reviews}/>;
       default:
