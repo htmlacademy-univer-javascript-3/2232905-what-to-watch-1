@@ -44,7 +44,7 @@ function Film(): JSX.Element {
           <Header className='film-card__head'/>
 
           <div className="film-card__wrap">
-            <FilmCardDescription film={film} films={similarFilms}>
+            <FilmCardDescription film={film}>
               <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
             </FilmCardDescription>
           </div>

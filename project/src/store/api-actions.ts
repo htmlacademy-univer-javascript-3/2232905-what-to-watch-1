@@ -20,6 +20,30 @@ export const getFilmsAction = createAsyncThunk<FilmInfo[], undefined, {
   },
 );
 
+export const getFavoriteFilmsAction = createAsyncThunk<FilmInfo[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'favorite-films/getFavoriteFilmsAction',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmInfo[]>(`${APIRoute.Favorite}`);
+    return data;
+  },
+);
+
+export const changeFilmStatusAction = createAsyncThunk<FilmInfo, {filmId: number; status: number}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'favorite-films/changeFilmStatusAction',
+  async ({filmId, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<FilmInfo>(`${APIRoute.Favorite}/${filmId}/${status}`);
+    return data;
+  },
+);
+
 export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;

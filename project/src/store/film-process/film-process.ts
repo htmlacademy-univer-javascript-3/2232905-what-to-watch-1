@@ -1,8 +1,9 @@
 import {NameSpace} from '../../const';
 import {createSlice} from '@reduxjs/toolkit';
 import {
+  changeFilmStatusAction,
   getFilmAction, getFilmReviewsAction,
-  getSimilarFilmsAction, postFilmReviewAction,
+  getSimilarFilmsAction, logoutAction, postFilmReviewAction,
 } from '../api-actions';
 import {FilmInfo, Review} from '../../types/film-info';
 
@@ -49,9 +50,11 @@ export const filmProcess = createSlice({
       })
       .addCase(postFilmReviewAction.pending, (state, action) => {
         state.isReviewSend = false;
+      })
+      .addCase(changeFilmStatusAction.fulfilled, (state, action) => {
+        const film = action.payload;
+        if (state.film?.id == film.id)
+          state.film.isFavorite = film.isFavorite;
       });
-    //.addCase(setFavoriteFilmAction.fulfilled, (state, action) => {
-    //  state.film = action.payload;
-    //})
   }
 });

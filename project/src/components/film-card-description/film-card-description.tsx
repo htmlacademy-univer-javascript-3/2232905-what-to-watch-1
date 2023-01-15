@@ -1,23 +1,13 @@
 import {FilmInfo} from '../../types/film-info';
 import {PropsWithChildren, useState} from 'react';
 import {Link} from 'react-router-dom';
+import FilmInList from "../film-in-list/film-in-list";
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   film: FilmInfo;
-  films: FilmInfo[];
 }>
 
-function FilmCardDescription({film, films, children}: FilmCardDescriptionProps){
-  const filmsInListCount = films.filter((f) => f.isFavorite).length;
-
-  const [isInList, setIsInList] = useState(film.isFavorite);
-  const [count, setCount] = useState(filmsInListCount);
-
-  const addOrRemoveFilmToList = () => {
-    isInList ? setCount(count - 1) : setCount(count + 1);
-    setIsInList(!isInList);
-  };
-
+function FilmCardDescription({film, children}: FilmCardDescriptionProps){
   return(
     <div className="film-card__desc">
       <h2 className="film-card__title">{film.name}</h2>
@@ -33,21 +23,7 @@ function FilmCardDescription({film, films, children}: FilmCardDescriptionProps){
           </svg>
           <span>Play</span>
         </Link>
-
-        <button className="btn btn--list film-card__button" type="button" onClick={addOrRemoveFilmToList}>
-          {
-            isInList ?
-              <svg viewBox="0 0 18 14" width="18" height="14">
-                <use xlinkHref="#in-list"></use>
-              </svg> :
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-          }
-          <span>My list</span>
-          <span className="film-card__count">{count}</span>
-        </button>
-
+        <FilmInList film={film}/>
         {children}
       </div>
     </div>

@@ -29,7 +29,7 @@ function Main(): JSX.Element {
               <div className="film-card__poster">
                 <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327"/>
               </div>
-              <FilmCardDescription film={promoFilm} films={films}/>
+              <FilmCardDescription film={promoFilm}/>
             </div>
           </div>
         </section>
