@@ -1,0 +1,17 @@
+.loading {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 65px;
+  clip-path: inset(-5ch 3ch -5ch 0);
+  animation: l 1s steps(4) infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0 -1ch 0 0)
+  }
+}

@@ -5,87 +5,73 @@ import {Link, useParams} from 'react-router-dom';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import ListFilms from '../../components/list-films/list-films';
 import Tab from '../../components/tab/tab';
-import {useEffect, useState} from 'react';
-import {FilmInfo, Review} from '../../types/film-info';
-import {getFilm, getFilmReviews, getSimilarFilms} from '../../services/api-functions';
-import {useAppDispatch} from '../../hooks';
-import {redirectAction} from '../../store/action';
-import {AppRoute} from '../../constants/constants';
-import LoadingScreen from '../loading/loading';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import LoadingScreen from '../../components/loading/loading';
+import {getFilm, getIsFilmLoaded, getReviews, getSimilarFilm} from '../../store/film-process/selectors';
+import {getFilmAction, getFilmReviewsAction, getSimilarFilmsAction} from '../../store/api-actions';
+import NotFound from '../not-found/not-found';
 
 
 function Film(): JSX.Element {
-  const [film, setFilm] = useState<FilmInfo>();
-  const [similarFilms, setSimilarFilms] = useState<FilmInfo[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const params = useParams();
   const filmId = Number(params.id);
-
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilm);
+  const reviews = useAppSelector(getReviews);
+  const isFilmLoaded = useAppSelector(getIsFilmLoaded);
   const dispatch = useAppDispatch();
 
 
   useEffect(() => {
-    getFilm(filmId)
-      .then(({data}) => {
-        setFilm(data);
-      })
-      .catch(() => {
-        dispatch(redirectAction(AppRoute.NotFound));
-      });
-    getSimilarFilms(filmId).then(({data}) => {
-      setSimilarFilms(data);
-    });
-    getFilmReviews(filmId).then(({data}) => {
-      setReviews(data.sort((firstReview, secondReview) => {
-        if (firstReview.date === secondReview.date)
-        {return 0;}
-        if (firstReview.date > secondReview.date)
-        {return -1;}
-        else
-        {return 1;}
-      }));
-    },);
-  },
-  [filmId]); /* eslint-disable-line */
+    dispatch(getFilmAction(filmId));
+    dispatch(getSimilarFilmsAction(filmId));
+    dispatch(getFilmReviewsAction(filmId));
+  }, [filmId, dispatch]);
 
-  return (!film || !similarFilms) ?
-    (<LoadingScreen/>) : (
-      <>
-        <section className="film-card film-card--full">
-          <div className="film-card__hero">
-            <FilmCardBackground background={film.backgroundImage} alt={film.name}/>
+  if (!isFilmLoaded || !similarFilms || !reviews)
+  {return <LoadingScreen/>;}
 
-            <Header className='film-card__head'/>
+  if (!film)
+  {return <NotFound/>;}
 
-            <div className="film-card__wrap">
-              <FilmCardDescription film={film} films={similarFilms}>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
-              </FilmCardDescription>
-            </div>
+  return (
+    <>
+      <section className="film-card film-card--full">
+        <div className="film-card__hero">
+          <FilmCardBackground background={film.backgroundImage} alt={film.name}/>
+
+          <Header className='film-card__head'/>
+
+          <div className="film-card__wrap">
+            <FilmCardDescription film={film} films={similarFilms}>
+              <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+            </FilmCardDescription>
           </div>
+        </div>
 
-          <div className="film-card__wrap film-card__translate-top">
-            <div className="film-card__info">
-              <div className="film-card__poster film-card__poster--big">
-                <img src={film.posterImage} alt={film.name} width="218" height="327"/>
-              </div>
-
-              <Tab filmInfo={film} reviews={reviews}/>
-
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img src={film.posterImage} alt={film.name} width="218" height="327"/>
             </div>
+
+            <Tab filmInfo={film} reviews={reviews}/>
+
           </div>
+        </div>
+      </section>
+
+      <div className="page-content">
+        <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">More like this</h2>
+          <ListFilms films={similarFilms}/>
         </section>
 
-        <div className="page-content">
-          <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
-            <ListFilms films={similarFilms}/>
-          </section>
-
-          <Footer/>
-        </div>
-      </>
-    );
+        <Footer/>
+      </div>
+    </>
+  );
 }
 
 export default Film;

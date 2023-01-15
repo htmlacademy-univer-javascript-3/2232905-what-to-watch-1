@@ -8,16 +8,19 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {useAppSelector} from '../../hooks';
-import LoadingScreen from '../../pages/loading/loading';
+import LoadingScreen from '../loading/loading';
 import HistoryRouter from '../history-route/hitstory-route';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus, getIsCheckAuthLoaded} from '../../store/user-process/selectors';
+import {useAppSelector} from '../../hooks';
+import {getIsDataLoaded} from '../../store/main-process/selectors';
 
 
 function App(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
-  const {isFilmsLoaded, promoFilm} = useAppSelector((state) => state);
-  if (!isFilmsLoaded || !promoFilm)
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getIsDataLoaded);
+  const isCheckAuthLoaded = useAppSelector(getIsCheckAuthLoaded);
+  if (!isDataLoaded || !isCheckAuthLoaded)
   {
     return (
       <LoadingScreen/>

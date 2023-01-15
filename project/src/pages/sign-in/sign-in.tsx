@@ -3,13 +3,14 @@ import Footer from '../../components/footer/footer';
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {AuthStatus} from '../../constants/constants';
 import {Navigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AuthorizationStatus} from '../../const';
 
 
 function SignIn(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState(
@@ -52,7 +53,7 @@ function SignIn(): JSX.Element {
     }
   };
 
-  return authorizationStatus === AuthStatus.Auth ? <Navigate to={'/'}/> : (
+  return authorizationStatus === AuthorizationStatus.Auth ? <Navigate to={'/'}/> : (
     <div className="user-page">
       <Header className='user-page__head'>
         <h1 className="page-title user-page__title">Sign in</h1>
@@ -83,7 +84,6 @@ function SignIn(): JSX.Element {
           </div>
         </form>
       </div>
-
       <Footer/>
     </div>
   );

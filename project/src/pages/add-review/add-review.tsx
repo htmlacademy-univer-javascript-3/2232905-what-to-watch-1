@@ -2,32 +2,24 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Header from '../../components/header/header';
 import {Link, useParams} from 'react-router-dom';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import {useAppDispatch} from '../../hooks';
-import {useEffect, useState} from 'react';
-import {FilmInfo} from '../../types/film-info';
-import {getFilm} from '../../services/api-functions';
-import {redirectAction} from '../../store/action';
-import {AppRoute} from '../../constants/constants';
-import LoadingScreen from '../loading/loading';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import LoadingScreen from '../../components/loading/loading';
+import {getFilmsAction} from '../../store/api-actions';
+import {getFilm} from '../../store/film-process/selectors';
 
 
 function AddReview(): JSX.Element {
-  const [film, setFilm] = useState<FilmInfo>();
   const params = useParams();
   const filmId = Number(params.id);
+  const film = useAppSelector(getFilm);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getFilm(filmId)
-      .then(({data}) => {
-        setFilm(data);
-      })
-      .catch(() => {
-        dispatch(redirectAction(AppRoute.NotFound));
-      });
+    dispatch(getFilmsAction);
   },
-  [filmId]); /* eslint-disable-line */
+  [filmId, dispatch]);
 
   return !film ? <LoadingScreen/> : (
     <section className="film-card film-card--full">

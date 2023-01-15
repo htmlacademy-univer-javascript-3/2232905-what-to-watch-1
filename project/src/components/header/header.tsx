@@ -1,16 +1,18 @@
 import {PropsWithChildren} from 'react';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
-import {AuthStatus} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
+import {AuthorizationStatus} from '../../const';
 
 type HeaderProps = PropsWithChildren<{
   className: string;
 }>
 
 function UserBlock(){
-  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
 
   const onClickSignOut = () => {
@@ -33,10 +35,10 @@ function UserBlock(){
 
   let userBlock;
   switch (authorizationStatus) {
-    case AuthStatus.Auth:
+    case AuthorizationStatus.Auth:
       userBlock = authorisedUserBlock;
       break;
-    case AuthStatus.NoAuth:
+    case AuthorizationStatus.NoAuth:
       userBlock = notAuthorisedUserBlock;
       break;
   }

@@ -3,36 +3,17 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Header from '../../components/header/header';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import Footer from '../../components/footer/footer';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeGenreAction} from '../../store/action';
+import {useAppSelector} from '../../hooks';
+import CatalogGenres from '../../components/catalog-genres/catalog-genres';
+import {getFilms, getPromoFilm, getSelectedGenre} from '../../store/main-process/selectors';
+import {Genre} from '../../types/genre';
 
 
 function Main(): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  const {selectedGenre, films, promoFilm, genres} = useAppSelector((state) => state);
-  const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
-
-  const showGenresNavigate = () => {
-    const links = [];
-
-    for (const value of Array.from(genres)) {
-      const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
-      links.push(
-        <li className={`catalog__genres-item ${className}`}>
-          <button className="catalog__genres-link"
-            onClick={() => {
-              dispatch(changeGenreAction(value));
-            }}
-            style={{background: 'transparent', border: 'none'}}
-          >
-            {value}
-          </button>
-        </li>);
-    }
-
-    return links;
-  };
+  const selectedGenre = useAppSelector(getSelectedGenre);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const films = useAppSelector(getFilms);
+  const filmsToShow = selectedGenre === Genre.All ? films : films.filter((film) => film.genre === selectedGenre);
 
   return (
     <>
@@ -57,12 +38,7 @@ function Main(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <ul className="catalog__genres-list">
-            {
-              showGenresNavigate()
-            }
-          </ul>
+          <CatalogGenres/>
           <ListFilms films={filmsToShow}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
