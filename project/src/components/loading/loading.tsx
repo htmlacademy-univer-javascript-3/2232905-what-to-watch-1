@@ -1,4 +1,4 @@
-import "./loading.css"
+import './loading.css';
 
 function LoadingScreen(): JSX.Element {
   return (

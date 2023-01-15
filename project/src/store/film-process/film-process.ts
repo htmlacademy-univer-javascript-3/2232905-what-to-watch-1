@@ -1,11 +1,10 @@
-import {NameSpace} from "../../const";
-import {createSlice} from "@reduxjs/toolkit";
+import {NameSpace} from '../../const';
+import {createSlice} from '@reduxjs/toolkit';
 import {
   getFilmAction, getFilmReviewsAction,
   getSimilarFilmsAction, postFilmReviewAction,
-} from "../api-actions";
-import {FilmInfo, Review} from "../../types/film-info";
-import {getFilm} from "./selectors";
+} from '../api-actions';
+import {FilmInfo, Review} from '../../types/film-info';
 
 
 const initialState: {
@@ -20,7 +19,7 @@ const initialState: {
   isFilmLoaded: false,
   reviews: [],
   isReviewSend: null,
-}
+};
 
 
 export const filmProcess = createSlice({
@@ -50,9 +49,9 @@ export const filmProcess = createSlice({
       })
       .addCase(postFilmReviewAction.pending, (state, action) => {
         state.isReviewSend = false;
-      })
-      //.addCase(setFavoriteFilmAction.fulfilled, (state, action) => {
-      //  state.film = action.payload;
-      //})
+      });
+    //.addCase(setFavoriteFilmAction.fulfilled, (state, action) => {
+    //  state.film = action.payload;
+    //})
   }
 });

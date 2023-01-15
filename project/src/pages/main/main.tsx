@@ -5,14 +5,14 @@ import FilmCardDescription from '../../components/film-card-description/film-car
 import Footer from '../../components/footer/footer';
 import {useAppSelector} from '../../hooks';
 import CatalogGenres from '../../components/catalog-genres/catalog-genres';
-import {getFilms, getPromoFilm, getSelectedGenre} from "../../store/main-process/selectors";
-import {Genre} from "../../types/genre";
+import {getFilms, getPromoFilm, getSelectedGenre} from '../../store/main-process/selectors';
+import {Genre} from '../../types/genre';
 
 
 function Main(): JSX.Element {
   const selectedGenre = useAppSelector(getSelectedGenre);
-  const promoFilm = useAppSelector(getPromoFilm)
-  const films = useAppSelector(getFilms)
+  const promoFilm = useAppSelector(getPromoFilm);
+  const films = useAppSelector(getFilms);
   const filmsToShow = selectedGenre === Genre.All ? films : films.filter((film) => film.genre === selectedGenre);
 
   return (

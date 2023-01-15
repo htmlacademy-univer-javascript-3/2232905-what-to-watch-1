@@ -6,7 +6,7 @@ import {redirectAction} from './action';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken} from '../services/token';
 import {UserData} from '../types/user-data';
-import {APIRoute, AppRoute} from "../const";
+import {APIRoute, AppRoute} from '../const';
 
 export const getFilmsAction = createAsyncThunk<FilmInfo[], undefined, {
   dispatch: AppDispatch;
@@ -97,7 +97,7 @@ export const getFilmReviewsAction = createAsyncThunk<Review[], number, {
 );
 
 
-export const postFilmReviewAction = createAsyncThunk<FilmInfo[], {filmId: number, review: { comment: string; rating: number }}, {
+export const postFilmReviewAction = createAsyncThunk<FilmInfo[], {filmId: number; review: { comment: string; rating: number }}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

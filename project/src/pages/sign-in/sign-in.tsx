@@ -5,8 +5,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {Navigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
-import {getAuthorizationStatus} from "../../store/user-process/selectors";
-import {AuthorizationStatus} from "../../const";
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AuthorizationStatus} from '../../const';
 
 
 function SignIn(): JSX.Element {

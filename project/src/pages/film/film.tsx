@@ -8,9 +8,9 @@ import Tab from '../../components/tab/tab';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import LoadingScreen from '../../components/loading/loading';
-import {getFilm, getIsFilmLoaded, getReviews, getSimilarFilm} from "../../store/film-process/selectors";
-import {getFilmAction, getFilmReviewsAction, getSimilarFilmsAction} from "../../store/api-actions";
-import NotFound from "../not-found/not-found";
+import {getFilm, getIsFilmLoaded, getReviews, getSimilarFilm} from '../../store/film-process/selectors';
+import {getFilmAction, getFilmReviewsAction, getSimilarFilmsAction} from '../../store/api-actions';
+import NotFound from '../not-found/not-found';
 
 
 function Film(): JSX.Element {
@@ -30,48 +30,48 @@ function Film(): JSX.Element {
   }, [filmId, dispatch]);
 
   if (!isFilmLoaded || !similarFilms || !reviews)
-    return <LoadingScreen/>
+  {return <LoadingScreen/>;}
 
   if (!film)
-    return <NotFound/>
+  {return <NotFound/>;}
 
   return (
-      <>
-        <section className="film-card film-card--full">
-          <div className="film-card__hero">
-            <FilmCardBackground background={film.backgroundImage} alt={film.name}/>
+    <>
+      <section className="film-card film-card--full">
+        <div className="film-card__hero">
+          <FilmCardBackground background={film.backgroundImage} alt={film.name}/>
 
-            <Header className='film-card__head'/>
+          <Header className='film-card__head'/>
 
-            <div className="film-card__wrap">
-              <FilmCardDescription film={film} films={similarFilms}>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
-              </FilmCardDescription>
-            </div>
+          <div className="film-card__wrap">
+            <FilmCardDescription film={film} films={similarFilms}>
+              <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+            </FilmCardDescription>
           </div>
+        </div>
 
-          <div className="film-card__wrap film-card__translate-top">
-            <div className="film-card__info">
-              <div className="film-card__poster film-card__poster--big">
-                <img src={film.posterImage} alt={film.name} width="218" height="327"/>
-              </div>
-
-              <Tab filmInfo={film} reviews={reviews}/>
-
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img src={film.posterImage} alt={film.name} width="218" height="327"/>
             </div>
+
+            <Tab filmInfo={film} reviews={reviews}/>
+
           </div>
+        </div>
+      </section>
+
+      <div className="page-content">
+        <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">More like this</h2>
+          <ListFilms films={similarFilms}/>
         </section>
 
-        <div className="page-content">
-          <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
-            <ListFilms films={similarFilms}/>
-          </section>
-
-          <Footer/>
-        </div>
-      </>
-    );
+        <Footer/>
+      </div>
+    </>
+  );
 }
 
 export default Film;

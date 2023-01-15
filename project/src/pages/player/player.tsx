@@ -1,17 +1,16 @@
 import NotFound from '../not-found/not-found';
-import {useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {getFilm, getIsFilmLoaded} from "../../store/film-process/selectors";
-import {useEffect, useRef, useState} from "react";
-import {getFilmAction} from "../../store/api-actions";
-import LoadingScreen from "../../components/loading/loading";
-import browserHistory from "../../browser-history";
+import {useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getFilm, getIsFilmLoaded} from '../../store/film-process/selectors';
+import {useEffect, useRef, useState} from 'react';
+import {getFilmAction} from '../../store/api-actions';
+import LoadingScreen from '../../components/loading/loading';
+import browserHistory from '../../browser-history';
 import moment from 'moment';
-import {time} from "faker";
 
 
 function Player(): JSX.Element {
-  const filmId = Number(useParams().id)
+  const filmId = Number(useParams().id);
   const film = useAppSelector(getFilm);
   const isFilmLoaded = useAppSelector(getIsFilmLoaded);
   const dispatch = useAppDispatch();
@@ -50,10 +49,10 @@ function Player(): JSX.Element {
     }
     setProgress((target.currentTime / target.duration) * 100);
     if (videoRef.current) {
-      const timeLeft = Math.trunc(videoRef.current.duration - videoRef.current.currentTime);
-      setTimeLeft(timeLeft);
-      if (timeLeft === 0)
-        setIsPlaying(false);
+      const time = videoRef.current.duration - videoRef.current.currentTime;
+      setTimeLeft(Math.trunc(time));
+      if (time === 0)
+      {setIsPlaying(false);}
     }
   };
 
@@ -62,10 +61,10 @@ function Player(): JSX.Element {
   }, [filmId, dispatch]);
 
   if (!isFilmLoaded)
-    return <LoadingScreen/>
+  {return <LoadingScreen/>;}
 
   if (!film)
-    return <NotFound/>
+  {return <NotFound/>;}
 
   return (
     <div className="player">
@@ -110,7 +109,7 @@ function Player(): JSX.Element {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Player;

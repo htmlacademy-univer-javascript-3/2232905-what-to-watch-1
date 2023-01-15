@@ -1,11 +1,11 @@
-import {NameSpace} from "../../const";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {NameSpace} from '../../const';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const initialState: {
-  isDataLoaded: boolean,
+  isDataLoaded: boolean;
 } = {
   isDataLoaded: false
-}
+};
 
 
 export const dataProcess = createSlice({

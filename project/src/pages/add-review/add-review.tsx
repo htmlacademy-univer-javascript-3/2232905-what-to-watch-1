@@ -5,19 +5,19 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import LoadingScreen from '../../components/loading/loading';
-import {getFilmsAction} from "../../store/api-actions";
-import {getFilm} from "../../store/film-process/selectors";
+import {getFilmsAction} from '../../store/api-actions';
+import {getFilm} from '../../store/film-process/selectors';
 
 
 function AddReview(): JSX.Element {
   const params = useParams();
   const filmId = Number(params.id);
-  const film = useAppSelector(getFilm)
+  const film = useAppSelector(getFilm);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getFilmsAction)
+    dispatch(getFilmsAction);
   },
   [filmId, dispatch]);
 
