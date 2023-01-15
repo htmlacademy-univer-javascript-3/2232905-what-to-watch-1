@@ -1,7 +1,7 @@
 import {FilmInfo} from '../../types/film-info';
-import {PropsWithChildren, useState} from 'react';
+import {PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
-import FilmInList from "../film-in-list/film-in-list";
+import FilmInList from '../film-in-list/film-in-list';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   film: FilmInfo;

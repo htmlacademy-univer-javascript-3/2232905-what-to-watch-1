@@ -47,15 +47,15 @@ function SmallFilmCard({id, posterImageSource, videoSrc, filmName}: SmallFilmCar
   return (
     <article className="small-film-card catalog__films-card" ref={ref}>
       <Link to={`/films/${id}`}>
-      <div
-        className="small-film-card__image"
-      >
-        {
-          playerState.isPlayerOn ?
-            <VideoPlayer videoSrc={videoSrc} posterVideo={posterImageSource} width={filmCardWidth} height={filmCardHeight}/> :
-            <img src={posterImageSource} alt={filmName} width={filmCardWidth} height={filmCardHeight}/>
-        }
-      </div>
+        <div
+          className="small-film-card__image"
+        >
+          {
+            playerState.isPlayerOn ?
+              <VideoPlayer videoSrc={videoSrc} posterVideo={posterImageSource} width={filmCardWidth} height={filmCardHeight}/> :
+              <img src={posterImageSource} alt={filmName} width={filmCardWidth} height={filmCardHeight}/>
+          }
+        </div>
       </Link>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${id}`}>{filmName}</Link>

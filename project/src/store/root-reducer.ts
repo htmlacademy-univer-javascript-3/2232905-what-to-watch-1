@@ -3,7 +3,7 @@ import {NameSpace} from '../const';
 import {userProcess} from './user-process/user-process';
 import {filmProcess} from './film-process/film-process';
 import {mainProcess} from './main-process/main-process';
-import {favoriteFilmsProcess} from "./favorite-films-process/favorite-films-process";
+import {favoriteFilmsProcess} from './favorite-films-process/favorite-films-process';
 
 export const rootReducer = combineReducers({
   [NameSpace.Film]: filmProcess.reducer,

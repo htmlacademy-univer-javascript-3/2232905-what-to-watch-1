@@ -3,7 +3,8 @@ import {createSlice} from '@reduxjs/toolkit';
 import {
   changeFilmStatusAction,
   getFilmAction, getFilmReviewsAction,
-  getSimilarFilmsAction, logoutAction, postFilmReviewAction,
+  getSimilarFilmsAction,
+  postFilmReviewAction,
 } from '../api-actions';
 import {FilmInfo, Review} from '../../types/film-info';
 
@@ -53,8 +54,8 @@ export const filmProcess = createSlice({
       })
       .addCase(changeFilmStatusAction.fulfilled, (state, action) => {
         const film = action.payload;
-        if (state.film?.id == film.id)
-          state.film.isFavorite = film.isFavorite;
+        if (state.film?.id === film.id)
+        {state.film.isFavorite = film.isFavorite;}
       });
   }
 });

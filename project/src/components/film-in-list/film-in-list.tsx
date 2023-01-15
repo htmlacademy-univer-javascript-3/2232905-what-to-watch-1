@@ -1,10 +1,10 @@
-import {FilmInfo} from "../../types/film-info";
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {getFavoriteFilmsCount} from "../../store/favorite-films-process/selectors";
-import {changeFilmStatusAction} from "../../store/api-actions";
-import {getAuthorizationStatus} from "../../store/user-process/selectors";
-import {AppRoute, AuthorizationStatus} from "../../const";
-import {redirectAction} from "../../store/action";
+import {FilmInfo} from '../../types/film-info';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getFavoriteFilmsCount} from '../../store/favorite-films-process/selectors';
+import {changeFilmStatusAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {redirectAction} from '../../store/action';
 
 function FilmInList({film}: {film: FilmInfo}) : JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,8 +21,7 @@ function FilmInList({film}: {film: FilmInfo}) : JSX.Element {
         else {
           dispatch(changeFilmStatusAction({filmId: film.id, status: Number(!film.isFavorite)}));
         }
-      }
-    }
+      }}
     >
       {
         film.isFavorite ?
@@ -36,7 +35,7 @@ function FilmInList({film}: {film: FilmInfo}) : JSX.Element {
       <span>My list</span>
       <span className="film-card__count">{countFavoriteFilms}</span>
     </button>
-  )
+  );
 }
 
 export default FilmInList;

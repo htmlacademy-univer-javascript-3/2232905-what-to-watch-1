@@ -2,7 +2,7 @@ import ListFilms from '../../components/list-films/list-films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import {useAppSelector} from '../../hooks';
-import {getFavoriteFilms} from "../../store/favorite-films-process/selectors";
+import {getFavoriteFilms} from '../../store/favorite-films-process/selectors';
 
 
 function MyList(): JSX.Element {

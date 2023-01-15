@@ -4,14 +4,11 @@ import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {
   changeFilmStatusAction,
-  getFavoriteFilmsAction,
   getFilmsAction,
   getPromoFilmAction,
   logoutAction
 } from '../api-actions';
 import {changeGenreAction} from '../action';
-import {stat} from "fs";
-import {store} from "../index";
 
 const initialState: {
   films: FilmInfo[];
@@ -49,8 +46,8 @@ export const mainProcess = createSlice({
       })
       .addCase(changeFilmStatusAction.fulfilled, (state, action) => {
         const film = action.payload;
-        if (state.promoFilm?.id == film.id)
-          state.promoFilm.isFavorite = film.isFavorite;
+        if (state.promoFilm?.id === film.id)
+        {state.promoFilm.isFavorite = film.isFavorite;}
       })
       .addCase(logoutAction.fulfilled, (state, action) => {
         if (state.promoFilm) {

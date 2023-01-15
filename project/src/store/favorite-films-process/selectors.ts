@@ -1,6 +1,6 @@
-import {State} from "../../types/state";
-import {FilmInfo} from "../../types/film-info";
-import {NameSpace} from "../../const";
+import {State} from '../../types/state';
+import {FilmInfo} from '../../types/film-info';
+import {NameSpace} from '../../const';
 
 export const getFavoriteFilms = (state: State): FilmInfo[] =>
   Object
