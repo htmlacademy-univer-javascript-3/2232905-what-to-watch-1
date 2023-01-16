@@ -1,15 +1,15 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Genre} from '../../types/genre';
 import {getHashCode} from '../../utils';
 import {getFilms, getSelectedGenre} from '../../store/main-process/selectors';
 import {changeGenreAction} from '../../store/main-process/main-process';
+import {ALL_GENRES} from '../../const';
 
 
 function CatalogGenres(): JSX.Element {
   const dispatch = useAppDispatch();
   const films = useAppSelector(getFilms);
   const selectedGenre = useAppSelector(getSelectedGenre);
-  const catalogGenresData = [Genre.All, ...new Set(films.map((x) => x.genre))];
+  const catalogGenresData = [ALL_GENRES, ...new Set(films.map((x) => x.genre))].slice(0, 10);
   return (
     <ul className="catalog__genres-list">
       {catalogGenresData.map((genre) => (

@@ -5,8 +5,9 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import LoadingScreen from '../../components/loading/loading';
-import {getFilmsAction} from '../../store/api-actions';
+import {getFilmAction, getFilmsAction} from '../../store/api-actions';
 import {getFilm} from '../../store/film-process/selectors';
+import {AppRoute} from '../../const';
 
 
 function AddReview(): JSX.Element {
@@ -18,6 +19,7 @@ function AddReview(): JSX.Element {
 
   useEffect(() => {
     dispatch(getFilmsAction);
+    dispatch(getFilmAction(filmId));
   },
   [filmId, dispatch]);
 
@@ -30,10 +32,10 @@ function AddReview(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                <Link to={`/${AppRoute.Films}/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={`/films/${film.id}/review`}>Add review</Link>
+                <Link className="breadcrumbs__link" to={`/${AppRoute.Films}/${film.id}/${AppRoute.AddReview}`}>Add review</Link>
               </li>
             </ul>
           </nav>
@@ -43,9 +45,7 @@ function AddReview(): JSX.Element {
           <img src={film.posterImage} alt={film.name} width="218" height="327"/>
         </div>
       </div>
-
       <AddReviewForm/>
-
     </section>
   );
 }

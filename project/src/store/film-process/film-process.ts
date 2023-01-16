@@ -27,7 +27,11 @@ const initialState: {
 export const filmProcess = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    changeIsReviewSend(state, action: {payload: boolean | null; type: string}){
+      state.isReviewSend = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getFilmAction.fulfilled, (state, action) => {
@@ -52,6 +56,9 @@ export const filmProcess = createSlice({
       .addCase(postFilmReviewAction.pending, (state, action) => {
         state.isReviewSend = false;
       })
+      .addCase(postFilmReviewAction.rejected, (state, action) => {
+        state.isReviewSend = null;
+      })
       .addCase(changeFilmStatusAction.fulfilled, (state, action) => {
         const film = action.payload;
         if (state.film?.id === film.id)
@@ -59,3 +66,5 @@ export const filmProcess = createSlice({
       });
   }
 });
+
+export const {changeIsReviewSend} = filmProcess.actions;

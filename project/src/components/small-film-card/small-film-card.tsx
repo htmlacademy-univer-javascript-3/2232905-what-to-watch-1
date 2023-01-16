@@ -2,16 +2,17 @@ import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import {TimeoutId} from '@reduxjs/toolkit/dist/query/core/buildMiddleware/types';
+import {AppRoute} from '../../const';
 
 type SmallFilmCardProps = {
   id: number;
   posterImageSource: string;
-  videoSrc: string;
+  videoSource: string;
   filmName: string;
 }
 
 
-function SmallFilmCard({id, posterImageSource, videoSrc, filmName}: SmallFilmCardProps): JSX.Element {
+function SmallFilmCard({id, posterImageSource, videoSource, filmName}: SmallFilmCardProps): JSX.Element {
   const [playerState, setPlayerState] = useState<{isPlayerOn: boolean; timeoutId: TimeoutId | null}>({isPlayerOn: false, timeoutId: null});
   const ref = useRef(null);
   const filmCardWidth = 280;
@@ -46,19 +47,19 @@ function SmallFilmCard({id, posterImageSource, videoSrc, filmName}: SmallFilmCar
 
   return (
     <article className="small-film-card catalog__films-card" ref={ref}>
-      <Link to={`/films/${id}`}>
+      <Link to={`/${AppRoute.Films}/${id}`}>
         <div
           className="small-film-card__image"
         >
           {
             playerState.isPlayerOn ?
-              <VideoPlayer videoSrc={videoSrc} posterVideo={posterImageSource} width={filmCardWidth} height={filmCardHeight}/> :
+              <VideoPlayer videoSource={videoSource} posterVideo={posterImageSource} width={filmCardWidth} height={filmCardHeight}/> :
               <img src={posterImageSource} alt={filmName} width={filmCardWidth} height={filmCardHeight}/>
           }
         </div>
       </Link>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{filmName}</Link>
+        <Link className="small-film-card__link" to={`/${AppRoute.Films}/${id}`}>{filmName}</Link>
       </h3>
     </article>
   );

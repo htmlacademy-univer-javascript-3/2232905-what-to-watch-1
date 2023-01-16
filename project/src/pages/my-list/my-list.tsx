@@ -1,11 +1,17 @@
 import ListFilms from '../../components/list-films/list-films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFavoriteFilms} from '../../store/favorite-films-process/selectors';
+import {useEffect} from 'react';
+import {getFavoriteFilmsAction} from '../../store/api-actions';
 
 
 function MyList(): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getFavoriteFilmsAction());
+  }, [dispatch]);
   const films = useAppSelector(getFavoriteFilms);
 
   return (

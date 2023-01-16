@@ -1,7 +1,6 @@
 import {FilmInfo} from '../../types/film-info';
-import {Genre} from '../../types/genre';
 import {createSlice} from '@reduxjs/toolkit';
-import {FILMS_COUNT_STEP, NameSpace} from '../../const';
+import {ALL_GENRES, FILMS_COUNT_STEP, NameSpace} from '../../const';
 import {
   changeFilmStatusAction,
   getFilmsAction,
@@ -14,15 +13,13 @@ const initialState: {
   filmsCountToShow: number;
   selectedGenre: string;
   promoFilm: FilmInfo | null;
-  error: null;
   isDataLoaded: boolean;
 
 } = {
   films: [],
   filmsCountToShow: FILMS_COUNT_STEP,
-  selectedGenre: Genre.All,
+  selectedGenre: ALL_GENRES,
   promoFilm: null,
-  error: null,
   isDataLoaded: false,
 };
 

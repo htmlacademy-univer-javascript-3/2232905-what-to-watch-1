@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function getHashCode(string: string): number {
   let hash = 0,
     i, chr;
@@ -8,4 +10,13 @@ export function getHashCode(string: string): number {
     hash |= 0;
   }
   return hash;
+}
+
+export function getTimeFromMinutes(mins: number) {
+  if (mins >= 24 * 60 || mins < 0) {
+    throw new RangeError('Valid input should be greater than or equal to 0 and less than 1440.');
+  }
+  const hours = mins / 60 | 0;
+  const minutes = mins % 60 | 0;
+  return moment().hours(hours).minutes(minutes).format('H[h] mm[m]');
 }

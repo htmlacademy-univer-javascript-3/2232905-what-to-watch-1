@@ -8,7 +8,7 @@ import {redirectAction} from '../../store/action';
 
 function FilmInList({film}: {film: FilmInfo}) : JSX.Element {
   const dispatch = useAppDispatch();
-  const countFavoriteFilms = useAppSelector(getFavoriteFilmsCount);
+  const favoriteFilmsCount = useAppSelector(getFavoriteFilmsCount);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <button
@@ -33,7 +33,7 @@ function FilmInList({film}: {film: FilmInfo}) : JSX.Element {
           </svg>
       }
       <span>My list</span>
-      <span className="film-card__count">{countFavoriteFilms}</span>
+      <span className="film-card__count">{favoriteFilmsCount}</span>
     </button>
   );
 }
