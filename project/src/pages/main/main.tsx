@@ -6,8 +6,7 @@ import Footer from '../../components/footer/footer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import CatalogGenres from '../../components/catalog-genres/catalog-genres';
 import {getFilms, getFilmsCountToShow, getPromoFilm, getSelectedGenre} from '../../store/main-process/selectors';
-import {Genre} from '../../types/genre';
-import {FILMS_COUNT_STEP} from '../../const';
+import {ALL_GENRES, FILMS_COUNT_STEP} from '../../const';
 import {changeFilmsCountToShowAction} from '../../store/main-process/main-process';
 import {useEffect} from 'react';
 
@@ -18,7 +17,7 @@ function Main(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
   const films = useAppSelector(getFilms);
   const filmsCountToShow = useAppSelector(getFilmsCountToShow);
-  const filmsToShow = selectedGenre === Genre.All ? films : films.filter((film) => film.genre === selectedGenre);
+  const filmsToShow = selectedGenre === ALL_GENRES ? films : films.filter((film) => film.genre === selectedGenre);
 
   useEffect(() => {
     dispatch(changeFilmsCountToShowAction(FILMS_COUNT_STEP));

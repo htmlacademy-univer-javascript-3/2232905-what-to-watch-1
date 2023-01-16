@@ -2,6 +2,7 @@ import {FilmInfo} from '../../types/film-info';
 import {PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
 import FilmInList from '../film-in-list/film-in-list';
+import {AppRoute} from '../../const';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   film: FilmInfo;
@@ -17,7 +18,7 @@ function FilmCardDescription({film, children}: FilmCardDescriptionProps){
       </p>
 
       <div className="film-card__buttons">
-        <Link to={`/player/${film.id}`} className="btn btn--play film-card__button">
+        <Link to={`/${AppRoute.Player}/${film.id}`} className="btn btn--play film-card__button">
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s"></use>
           </svg>

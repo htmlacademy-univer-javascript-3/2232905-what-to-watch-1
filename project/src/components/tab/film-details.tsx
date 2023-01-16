@@ -1,13 +1,8 @@
 import {FilmInfo} from '../../types/film-info';
+import {getTimeFromMinutes} from '../../utils';
+import {Fragment} from 'react';
 
 function FilmDetails({film}: {film: FilmInfo}) {
-
-  const showStarringActors = () => film.starring.slice(0, film.starring.length - 2).map((actor) => (
-    <>
-      {actor}, <br/>
-    </>
-  )).concat(<>{film.starring[film.starring.length - 1]}</>); /* eslint-disable-line */
-
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -19,8 +14,15 @@ function FilmDetails({film}: {film: FilmInfo}) {
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {
-              showStarringActors()
+              film.starring
+                .slice(0, film.starring.length - 1)
+                .map((actor) => (
+                  <Fragment key={actor}>
+                    {actor}, <br/>
+                  </Fragment>)
+                )
             }
+            {film.starring[film.starring.length - 1]}
           </span>
         </p>
       </div>
@@ -28,7 +30,7 @@ function FilmDetails({film}: {film: FilmInfo}) {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.runTime}</span>
+          <span className="film-card__details-value">{getTimeFromMinutes(film.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

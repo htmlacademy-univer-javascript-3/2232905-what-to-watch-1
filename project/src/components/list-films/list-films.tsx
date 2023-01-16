@@ -17,7 +17,7 @@ function ListFilms({films}: ListFilmsProps): JSX.Element{
                 key={film.id}
                 id={film.id}
                 posterImageSource={film.posterImage}
-                videoSrc={film.videoLink}
+                videoSource={film.videoLink}
                 filmName={film.name}
               />
             )

@@ -3,7 +3,7 @@ import {FilmInfo, Review} from '../types/film-info';
 import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {redirectAction} from './action';
-import {AuthData} from '../types/auth-data';
+import {AuthorizationData} from '../types/authorization-data';
 import {dropToken, saveToken} from '../services/token';
 import {UserData} from '../types/user-data';
 import {APIRoute, AppRoute} from '../const';
@@ -56,7 +56,7 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<UserData, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthorizationData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

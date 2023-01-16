@@ -1,7 +1,6 @@
 import {FilmInfo} from '../../types/film-info';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
-
   const getScore = () => {
     if (0 <= filmInfo.rating && filmInfo.rating < 3){
       return 'Bad';
@@ -12,7 +11,7 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
     } else if (8 <= filmInfo.rating && filmInfo.rating < 10){
       return 'Very good';
     } else {
-      return 'Awecome';
+      return 'Awesome';
     }
   };
 

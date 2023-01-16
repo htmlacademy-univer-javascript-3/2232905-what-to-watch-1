@@ -1,8 +1,8 @@
 export enum NameSpace {
-  Main = 'MAIN',
-  Film = 'FILM',
-  FavoriteFilms = 'FAVORITE-FILMS',
-  User = 'USER',
+  Main = 'Main',
+  Film = 'Film',
+  FavoriteFilms = 'Favorite-films',
+  User = 'User',
 }
 
 export enum APIRoute {
@@ -31,3 +31,4 @@ export enum AppRoute {
 }
 
 export const FILMS_COUNT_STEP = 8;
+export const ALL_GENRES = 'All Genres';

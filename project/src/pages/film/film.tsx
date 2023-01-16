@@ -11,6 +11,8 @@ import LoadingScreen from '../../components/loading/loading';
 import {getFilm, getIsFilmLoaded, getReviews, getSimilarFilm} from '../../store/film-process/selectors';
 import {getFilmAction, getFilmReviewsAction, getSimilarFilmsAction} from '../../store/api-actions';
 import NotFound from '../not-found/not-found';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 
 function Film(): JSX.Element {
@@ -20,6 +22,7 @@ function Film(): JSX.Element {
   const similarFilms = useAppSelector(getSimilarFilm);
   const reviews = useAppSelector(getReviews);
   const isFilmLoaded = useAppSelector(getIsFilmLoaded);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
 
@@ -45,7 +48,7 @@ function Film(): JSX.Element {
 
           <div className="film-card__wrap">
             <FilmCardDescription film={film}>
-              <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+              {authorizationStatus === AuthorizationStatus.Auth ? <Link to={`/${AppRoute.Films}/${film.id}/${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link> : null}
             </FilmCardDescription>
           </div>
         </div>
@@ -65,7 +68,7 @@ function Film(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <ListFilms films={similarFilms}/>
+          <ListFilms films={similarFilms.slice(0, 4)}/>
         </section>
 
         <Footer/>

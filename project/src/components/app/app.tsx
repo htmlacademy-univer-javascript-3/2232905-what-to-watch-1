@@ -14,6 +14,7 @@ import browserHistory from '../../browser-history';
 import {getAuthorizationStatus, getIsCheckAuthLoaded} from '../../store/user-process/selectors';
 import {useAppSelector} from '../../hooks';
 import {getIsDataLoaded} from '../../store/main-process/selectors';
+import {AppRoute} from '../../const';
 
 
 function App(): JSX.Element {
@@ -31,26 +32,26 @@ function App(): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
-          path="*"
+          path={AppRoute.NotFound}
           element={<NotFound/>}
         />
-        <Route path="/">x
+        <Route path={AppRoute.Main}>x
           <Route index element={
             <Main/>
           }
           />
-          <Route path="login" element={<SignIn/>}/>
-          <Route path="mylist" element=
+          <Route path={AppRoute.Login} element={<SignIn/>}/>
+          <Route path={AppRoute.MyList} element=
             {
               <PrivateRoute authorizationStatus={authorizationStatus}>
                 <MyList />
               </PrivateRoute>
             }
           />
-          <Route path="films/">
+          <Route path={`${AppRoute.Films}/`}>
             <Route path=":id">
               <Route index element={<Film/>}/>
-              <Route path="review" element=
+              <Route path={`${AppRoute.AddReview}`} element=
                 {
                   <PrivateRoute authorizationStatus={authorizationStatus}>
                     <AddReview/>
@@ -59,7 +60,7 @@ function App(): JSX.Element {
               />
             </Route>
           </Route>
-          <Route path="player/:id" element={<Player />}/>
+          <Route path={`${AppRoute.Player}/:id`} element={<Player />}/>
         </Route>
       </Routes>
     </HistoryRouter>

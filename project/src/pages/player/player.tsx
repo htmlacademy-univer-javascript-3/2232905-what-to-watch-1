@@ -19,7 +19,7 @@ function Player(): JSX.Element {
   const [progress, setProgress] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
 
-  const handlePlayClick = () => {
+  const handleButtonClickPlay = () => {
     if (videoRef.current?.paused) {
       videoRef.current?.play();
       setIsPlaying(true);
@@ -29,20 +29,20 @@ function Player(): JSX.Element {
     }
   };
 
-  const handleFullScreenClick = () => {
+  const handleButtonClickFullScreen = () => {
     if (videoRef.current?.requestFullscreen) {
       videoRef.current?.requestFullscreen();
     }
   };
 
-  const formatTime = (seconds: number) => {
+  const getFormatTime = (seconds: number) => {
     if (seconds / 60 / 60 >= 1) {
       return moment(seconds * 1000).format('-hh:mm:ss');}
     return moment(seconds * 1000).format('-mm:ss');
   };
 
 
-  const handleProgressBar = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+  const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     const target = (e.target as HTMLVideoElement);
     if (isNaN(target.duration)) {
       return;
@@ -73,8 +73,8 @@ function Player(): JSX.Element {
         ref={videoRef}
         className="player__video"
         poster={film.backgroundImage}
-        onTimeUpdate={(event) => handleProgressBar(event)}
-        onDoubleClick={handleFullScreenClick}
+        onTimeUpdate={(event) => handleVideoTimeUpdate(event)}
+        onDoubleClick={handleButtonClickFullScreen}
       >
       </video>
 
@@ -86,11 +86,11 @@ function Player(): JSX.Element {
             <progress className="player__progress" value={progress} max="100"></progress>
             <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">{formatTime(timeLeft)}</div>
+          <div className="player__time-value">{getFormatTime(timeLeft)}</div>
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={handlePlayClick}>
+          <button type="button" className="player__play" onClick={handleButtonClickPlay}>
             <svg viewBox="0 0 19 19" width="19" height="19">
               { !isPlaying ?
                 <use xlinkHref="#play-s"/> :
@@ -100,7 +100,7 @@ function Player(): JSX.Element {
           </button>
           <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen" onClick={handleFullScreenClick}>
+          <button type="button" className="player__full-screen" onClick={handleButtonClickFullScreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

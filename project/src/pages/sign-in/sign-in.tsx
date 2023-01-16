@@ -4,9 +4,9 @@ import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {Navigate} from 'react-router-dom';
-import {AuthData} from '../../types/auth-data';
+import {AuthorizationData} from '../../types/authorization-data';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 
 function SignIn(): JSX.Element {
@@ -20,7 +20,7 @@ function SignIn(): JSX.Element {
     }
   );
 
-  const checkSignInForm = ({login, password}: AuthData) => {
+  const checkSignInForm = ({login, password}: AuthorizationData) => {
     const isValidLogin = /^\S+@\S+\.\S+$/.test(login);
     const isValidPassword = /[A-Za-z]+/.test(password) && /[0-9]+/.test(password);
 
@@ -33,17 +33,17 @@ function SignIn(): JSX.Element {
     return null;
   };
 
-  const onChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
-  const onChangePassword = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChangePassword = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
-  const onSubmitSignIn = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const errorMsg = checkSignInForm({login: formData.email, password: formData.password});
     setErrorMessage(errorMsg ?? '');
@@ -53,27 +53,27 @@ function SignIn(): JSX.Element {
     }
   };
 
-  return authorizationStatus === AuthorizationStatus.Auth ? <Navigate to={'/'}/> : (
+  return authorizationStatus === AuthorizationStatus.Auth ? <Navigate to={AppRoute.Main}/> : (
     <div className="user-page">
       <Header className='user-page__head'>
         <h1 className="page-title user-page__title">Sign in</h1>
       </Header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={onSubmitSignIn}>
+        <form action="#" className="sign-in__form" onSubmit={handleFormSubmit}>
           {errorMessage ?
             <div className="sign-in__message">
               {errorMessage}
             </div> : ''}
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input onChange={onChangeEmail} className="sign-in__input" type="email" placeholder="Email address" name="email"
+              <input onChange={handleInputChangeEmail} className="sign-in__input" type="email" placeholder="Email address" name="email"
                 id="email"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input onChange={onChangePassword} className="sign-in__input" type="password" placeholder="Password" name="password"
+              <input onChange={handleInputChangePassword} className="sign-in__input" type="password" placeholder="Password" name="password"
                 id="password"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
